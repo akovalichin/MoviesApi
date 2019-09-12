@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using MoviesApi.Middleware;
-using Serilog;
 using MoviesApi.DbModels;
+using MoviesApi.Middleware;
+using MoviesApi.Repos;
+using MoviesApi.Services;
+using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace MoviesApi
@@ -23,17 +25,20 @@ namespace MoviesApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            var options = new DbContextOptionsBuilder<InMemoryContext>().UseInMemoryDatabase(databaseName: "in_memory").Options;
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "MoviesApi", Version = "v1" });
             });
 
-            using (var context = new InMemoryContext(options))
-            {
-                // add service here
-            }
+            services.AddEntityFrameworkInMemoryDatabase()
+                    .AddDbContext<InMemoryContext>(options =>
+                        options.UseInMemoryDatabase("in_memory"));
+
+            services.AddTransient<IMoviesService, MoviesService>();
+            services.AddTransient<IMoviesRepo, MoviesRepo>();
+            services.AddTransient<IRatingService, RatingService>();
+            services.AddSingleton<IRoundingService, RoundingService>();
             Log.Logger = new LoggerConfiguration()
                     .ReadFrom.Configuration(Configuration)
                     .CreateLogger();
