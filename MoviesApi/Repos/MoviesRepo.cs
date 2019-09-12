@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MoviesApi.DbModels;
 using MoviesApi.Exceptions;
-using MoviesApi.Middleware;
 using MoviesApi.Services;
 
 namespace MoviesApi.Repos

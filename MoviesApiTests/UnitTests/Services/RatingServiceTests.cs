@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using MoviesApi.Services;
+﻿using Moq;
 using MoviesApi.Repos;
-using Moq;
+using MoviesApi.Services;
+using NUnit.Framework;
 
 namespace MoviesApiTests.UnitTests.Services
 {

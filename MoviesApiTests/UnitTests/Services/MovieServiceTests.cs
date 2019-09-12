@@ -1,9 +1,9 @@
-﻿using NUnit.Framework;
-using MoviesApi.Services;
-using MoviesApi.Repos;
+﻿using System.Collections.Generic;
 using Moq;
 using MoviesApi.DbModels;
-using System.Collections.Generic;
+using MoviesApi.Repos;
+using MoviesApi.Services;
+using NUnit.Framework;
 
 namespace MoviesApiTests.UnitTests.Services
 {

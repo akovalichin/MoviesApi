@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MoviesApi.Middleware;
 using MoviesApi.DbModels;
+using MoviesApi.Middleware;
 using MoviesApi.Services;
-using System.Collections.Generic;
 
 namespace MoviesApi.Controllers
 {
